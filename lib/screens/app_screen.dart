@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:inspire/screens/home_screen.dart';
@@ -37,6 +38,8 @@ class _AppScreenState extends State<AppScreen>
           bottomNavigationBar: BottomNavigationBar(
             elevation: 0,
             currentIndex: _currentIndex,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
             onTap: _handleTabSelection,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -47,7 +50,15 @@ class _AppScreenState extends State<AppScreen>
                   icon: Icon(Icons.settings), label: 'Settings'),
             ],
           ),
-          body: Center(child: _widgetOptions.elementAt(_currentIndex))),
+          body: PageTransitionSwitcher(
+              child: _widgetOptions.elementAt(_currentIndex),
+              transitionBuilder:
+                  (child, primaryAnimation, secondaryAnimation) =>
+                      FadeThroughTransition(
+                        animation: primaryAnimation,
+                        secondaryAnimation: secondaryAnimation,
+                        child: child,
+                      ))),
     );
   }
 }
