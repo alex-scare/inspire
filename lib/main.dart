@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:inspire/models/global_state.dart';
 import 'package:inspire/screens/app_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => GlobalStateModel(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

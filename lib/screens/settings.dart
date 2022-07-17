@@ -1,17 +1,9 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:inspire/models/global_state.dart';
 import 'package:inspire/utils/navigation.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:enum_to_string/enum_to_string.dart';
-
-enum ThemeNameEnum { red, green, blue, mango }
-
-const themeMap = <ThemeNameEnum, String>{
-  ThemeNameEnum.blue: 'Blue',
-  ThemeNameEnum.green: 'Green',
-  ThemeNameEnum.red: 'Red',
-  ThemeNameEnum.mango: 'Mango',
-};
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -21,35 +13,10 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  ThemeNameEnum _currentTheme = ThemeNameEnum.blue;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSettings();
-  }
-
-  Future<void> _loadSettings() async {
-    final prefs = await SharedPreferences.getInstance();
-    final storedTheme = EnumToString.fromString<ThemeNameEnum>(
-        ThemeNameEnum.values, prefs.getString('currentTheme').toString());
-    if (storedTheme != null) {
-      setState(() {
-        _currentTheme = storedTheme;
-      });
-    }
-  }
-
-  Future<void> _changeTheme(ThemeNameEnum value) async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.setString('currentTheme', EnumToString.convertToString(value));
-      _currentTheme = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final globalState = Provider.of<GlobalStateModel>(context);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Settings'),
@@ -61,20 +28,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(Icons.format_paint),
                 title: const Text('Theme'),
                 onPressed: (context) async {
-                  final selected = await Navigation.navigateTo<ThemeNameEnum>(
+                  final selected = await Navigation.navigateTo<FlexScheme>(
                     context: context,
                     style: NavigationRouteStyle.material,
                     screen: ThemePickerScreen(
-                      theme: _currentTheme,
-                      options: themeMap,
+                      theme: globalState.currentTheme,
+                      options: themeLabelMap,
                     ),
                   );
 
-                  if (selected != null) {
-                    _changeTheme(selected);
-                  }
+                  if (selected != null) globalState.changeTheme(selected);
                 },
-                value: Text(themeMap[_currentTheme].toString()),
+                value: Text(themeLabelMap[globalState.currentTheme].toString()),
               ),
             ],
           )
@@ -89,8 +54,8 @@ class ThemePickerScreen extends StatelessWidget {
     required this.options,
   }) : super(key: key);
 
-  final ThemeNameEnum theme;
-  final Map<ThemeNameEnum, String> options;
+  final FlexScheme theme;
+  final Map<FlexScheme, String> options;
 
   @override
   Widget build(BuildContext context) {
@@ -100,15 +65,19 @@ class ThemePickerScreen extends StatelessWidget {
         sections: [
           SettingsSection(
             title: const Text('Select the theme you want'),
-            tiles: options.keys.map((e) {
-              final option = options[e];
+            tiles: options.keys.map((key) {
+              final option = options[key];
+              final optionColor = FlexThemeData.dark(scheme: key).primaryColor;
 
               return SettingsTile(
-                title: Text(option.toString()),
-                onPressed: (_) {
-                  Navigator.of(context).pop(e);
-                },
-              );
+                  title: Text(option.toString()),
+                  onPressed: (_) {
+                    Navigator.of(context).pop(key);
+                  },
+                  trailing: theme == key
+                      ? Icon(Icons.check, color: Theme.of(context).primaryColor)
+                      : const Icon(null),
+                  leading: Icon(Icons.circle_rounded, color: optionColor));
             }).toList(),
           ),
         ],
