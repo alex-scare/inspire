@@ -4,16 +4,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 
 const themeLabelMap = <FlexScheme, String>{
+  FlexScheme.hippieBlue: 'Hippie',
   FlexScheme.blue: 'Blue',
-  FlexScheme.green: 'Green',
-  FlexScheme.red: 'Red',
-  FlexScheme.mango: 'Mango',
-  FlexScheme.deepBlue: 'Deep blue',
-  FlexScheme.gold: 'Gold',
-  FlexScheme.redWine: 'Red wine',
+  FlexScheme.indigo: 'Indigo',
+  FlexScheme.deepBlue: 'Deep Blue',
+  FlexScheme.outerSpace: 'Outer space',
+  FlexScheme.shark: 'Shark',
+  FlexScheme.bigStone: 'Stone',
+  FlexScheme.greyLaw: 'Grey law',
+  FlexScheme.espresso: 'Espresso',
   FlexScheme.rosewood: 'Rosewood',
+  FlexScheme.redWine: 'Red wine',
+  FlexScheme.red: 'Red',
   FlexScheme.sakura: 'Sakura',
-  FlexScheme.vesuviusBurn: 'Burn'
+  FlexScheme.damask: 'Damask',
+  FlexScheme.mango: 'Mango',
+  FlexScheme.amber: 'Amber',
+  FlexScheme.green: 'Green',
+  FlexScheme.mallardGreen: 'Mallar Green',
+  FlexScheme.money: 'Money',
+  FlexScheme.jungle: 'Jungle',
 };
 
 class GlobalStateModel extends ChangeNotifier {
@@ -29,6 +39,7 @@ class GlobalStateModel extends ChangeNotifier {
         FlexScheme.values, prefs.getString('currentTheme').toString());
 
     if (storedTheme != null) _currentTheme = storedTheme;
+    notifyListeners();
   }
 
   FlexScheme get currentTheme => _currentTheme;

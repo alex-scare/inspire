@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:inspire/models/global_state.dart';
+import 'package:inspire/screens/goals_screen.dart';
 import 'package:inspire/screens/home_screen.dart';
 import 'package:inspire/screens/settings.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class _AppScreenState extends State<AppScreen>
 
   static const List<Widget> _widgetOptions = <Widget>[
     Randomazer(),
+    GoalsScreen(),
     SettingsScreen(),
   ];
 
@@ -50,6 +52,7 @@ class _AppScreenState extends State<AppScreen>
                 icon: Icon(Icons.home),
                 label: 'Home',
               ),
+              BottomNavigationBarItem(icon: Icon(Icons.flag), label: 'Goals'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: 'Settings'),
             ],

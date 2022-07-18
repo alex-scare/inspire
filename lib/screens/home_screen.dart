@@ -50,7 +50,7 @@ class _RandomazerState extends State<Randomazer> {
           title: const Text('Random nicknames'),
           actions: [
             IconButton(
-              icon: const Icon(Icons.list),
+              icon: Icon(Icons.list, color: Theme.of(context).primaryColor),
               onPressed: _goToFavourites,
               tooltip: 'Favourites',
             ),

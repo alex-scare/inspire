@@ -59,6 +59,7 @@ class ThemePickerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(title: const Text('Theme')),
       body: SettingsList(
@@ -67,7 +68,9 @@ class ThemePickerScreen extends StatelessWidget {
             title: const Text('Select the theme you want'),
             tiles: options.keys.map((key) {
               final option = options[key];
-              final optionColor = FlexThemeData.dark(scheme: key).primaryColor;
+
+              final darkColor = FlexThemeData.dark(scheme: key).primaryColor;
+              final lightColor = FlexThemeData.light(scheme: key).primaryColor;
 
               return SettingsTile(
                   title: Text(option.toString()),
@@ -77,7 +80,8 @@ class ThemePickerScreen extends StatelessWidget {
                   trailing: theme == key
                       ? Icon(Icons.check, color: Theme.of(context).primaryColor)
                       : const Icon(null),
-                  leading: Icon(Icons.circle_rounded, color: optionColor));
+                  leading: Icon(Icons.circle_rounded,
+                      color: isDark ? darkColor : lightColor));
             }).toList(),
           ),
         ],
