@@ -24,7 +24,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           SettingsSection(
             tiles: [
               SettingsTile.navigation(
-                leading: const Icon(Icons.format_paint),
+                leading: Icon(
+                  Icons.format_paint,
+                  color: Theme.of(context).primaryColor,
+                ),
                 title: const Text('Theme'),
                 onPressed: (context) async {
                   final selected = await Navigation.navigateTo<FlexScheme>(
@@ -38,7 +41,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                   if (selected != null) globalState.changeTheme(selected);
                 },
-                value: Text(themeLabelMap[globalState.currentTheme].toString()),
+                value: Text(
+                  themeLabelMap[globalState.currentTheme].toString(),
+                ),
               ),
             ],
           )

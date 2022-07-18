@@ -43,8 +43,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
             return ListTile(
               title: Text(current.title),
-              leading:
-                  Icon(IconData(current.iconHash, fontFamily: 'MaterialIcons')),
+              leading: Icon(
+                IconData(current.iconHash, fontFamily: 'MaterialIcons'),
+                color: Theme.of(context).primaryColor,
+              ),
             );
           }),
         ));
