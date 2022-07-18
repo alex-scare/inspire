@@ -2,6 +2,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:inspire/models/global_state.dart';
 import 'package:inspire/utils/navigation.dart';
+import 'package:inspire/widgets/app_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -18,9 +19,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final globalState = Provider.of<GlobalStateModel>(context);
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Settings'),
-        ),
+        appBar: CustomAppBar(title: 'Settings'),
         body: SettingsList(sections: [
           SettingsSection(
             tiles: [
@@ -61,7 +60,7 @@ class ThemePickerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(title: const Text('Theme')),
+      appBar: CustomAppBar(title: 'Theme'),
       body: SettingsList(
         sections: [
           SettingsSection(
