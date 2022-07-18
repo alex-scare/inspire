@@ -51,7 +51,10 @@ class _IconListInputState extends State<IconListInput> {
                   IconData(option, fontFamily: 'MaterialIcons'),
                   color: isSelected
                       ? Theme.of(context).colorScheme.onPrimary
-                      : null,
+                      : Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withAlpha(170),
                 ),
                 onTap: () {
                   widget.onChanged(option);

@@ -78,7 +78,7 @@ class _RandomazerState extends State<Randomazer> {
                 title: Text(current.asPascalCase),
                 trailing: Icon(
                   isFavourite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavourite ? Colors.red : null,
+                  color: isFavourite ? Theme.of(context).primaryColor : null,
                   semanticLabel: isFavourite
                       ? 'Remove from favorite list'
                       : 'Add to favorite list',
