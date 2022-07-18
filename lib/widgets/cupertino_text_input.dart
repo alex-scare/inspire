@@ -4,16 +4,18 @@ import 'package:flutter/material.dart';
 class CupertinoTextInput extends StatelessWidget {
   const CupertinoTextInput({
     Key? key,
-    required this.value,
     required this.label,
     required this.autofocus,
+    required this.onChanged,
+    this.initialValue = '',
     this.placeholder,
   }) : super(key: key);
 
-  final String value;
+  final String? initialValue;
   final String label;
   final bool autofocus;
   final String? placeholder;
+  final void Function(String? value) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,8 @@ class CupertinoTextInput extends StatelessWidget {
           autofocus: autofocus,
           placeholderStyle: TextStyle(color: Theme.of(context).focusColor),
           placeholder: placeholder,
+          initialValue: initialValue,
+          onChanged: onChanged,
           style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
         ));
   }
