@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inspire/models/global_state.dart';
 import 'package:inspire/screens/app_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(

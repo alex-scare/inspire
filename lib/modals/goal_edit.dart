@@ -26,7 +26,11 @@ class _GoalEditModalState extends State<GoalEditModal> {
         appBar: CupertinoNavigationBar(
           backgroundColor: Theme.of(context).backgroundColor,
           brightness: Theme.of(context).brightness,
-          middle: Text('Create your goal',
+          trailing: GestureDetector(
+            onTap: () {},
+            child: Icon(Icons.done, color: Theme.of(context).primaryColor),
+          ),
+          middle: Text('Create new goal',
               style:
                   TextStyle(color: Theme.of(context).colorScheme.onBackground)),
         ),

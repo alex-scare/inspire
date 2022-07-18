@@ -1,15 +1,31 @@
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+part 'goal.g.dart';
+
+@HiveType(typeId: 0)
 class Goal {
   Goal({
     required this.id,
     required this.title,
     required this.iconHash,
+    this.power = 0,
+    this.repeatCountToDone = 1,
     this.isArchived = false,
   });
 
+  @HiveField(0)
   final int id;
-  final bool isArchived;
+  @HiveField(1)
   final String title;
+  @HiveField(2)
   final int iconHash;
+  @HiveField(3)
+  final int power;
+  @HiveField(4)
+  final int repeatCountToDone;
+  @HiveField(5)
+  final bool isArchived;
 }
 
 Map<String, int> iconHashCode = {
