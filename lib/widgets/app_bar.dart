@@ -14,6 +14,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoNavigationBar(
+      transitionBetweenRoutes: false,
       backgroundColor: Theme.of(context).backgroundColor,
       trailing: trailing,
       middle: Text(title,
