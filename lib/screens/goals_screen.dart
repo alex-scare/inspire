@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inspire/modals/goal_edit.dart';
-import 'package:inspire/models/goal.dart';
+import 'package:inspire/services/goal_service.dart';
 import 'package:inspire/widgets/app_bar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
 class GoalsScreen extends StatefulWidget {
   const GoalsScreen({Key? key}) : super(key: key);
@@ -12,14 +13,12 @@ class GoalsScreen extends StatefulWidget {
 }
 
 class _GoalsScreenState extends State<GoalsScreen> {
-  final List<Goal> _items = [
-    Goal(id: 123, title: 'Flutter learning', iconHash: 0xe0b2),
-    Goal(id: 1234, title: 'Meditation', iconHash: 0xe06c),
-    Goal(id: 12345, title: 'Rest in game', iconHash: 0xf562),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final goalService = Provider.of<GoalService>(context);
+
+    goalService.initGoals();
+
     return Scaffold(
         appBar: CustomAppBar(
           title: 'Your goals',
@@ -34,12 +33,12 @@ class _GoalsScreenState extends State<GoalsScreen> {
           ),
         ),
         body: ListView.builder(
-          itemCount: _items.length * 2,
+          itemCount: goalService.goalCount * 2,
           itemBuilder: ((context, index) {
             if (index.isOdd) return const Divider(thickness: 1.0);
 
             int itemIndex = index ~/ 2;
-            final current = _items[itemIndex];
+            final current = goalService.getGoal(itemIndex);
 
             return ListTile(
               title: Text(current.title),
