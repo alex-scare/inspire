@@ -1,30 +1,32 @@
 import 'package:hive/hive.dart';
+import 'package:uuid/uuid.dart';
 
 part 'goal.g.dart';
 
 @HiveType(typeId: 0)
 class Goal extends HiveObject {
-  Goal({
-    required this.id,
-    required this.title,
-    required this.iconHash,
-    this.power = 0,
-    this.repeatCountToDone = 1,
-    this.isArchived = false,
-  });
+  Goal(
+      {required this.title,
+      required this.iconHash,
+      this.power = 0,
+      this.repeatCountToDone = 1,
+      this.isArchived = false,
+      existingId}) {
+    id = existingId ?? const Uuid().v4();
+  }
 
   @HiveField(0)
-  final int id;
+  late String id;
   @HiveField(1)
-  final String title;
+  late String title;
   @HiveField(2)
-  final int iconHash;
+  late int iconHash;
   @HiveField(3)
-  final int power;
+  late int power;
   @HiveField(4)
-  final int repeatCountToDone;
+  late int repeatCountToDone;
   @HiveField(5)
-  final bool isArchived;
+  late bool isArchived;
 }
 
 Map<String, int> iconHashCode = {

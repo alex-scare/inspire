@@ -19,6 +19,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   @override
   Widget build(BuildContext context) {
     final goalService = Provider.of<GoalService>(context);
+    final goals = goalService.goals;
 
     return Scaffold(
         appBar: CustomAppBar(
@@ -41,7 +42,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
               },
               itemCount: goalService.goalCount,
               itemBuilder: ((context, index) {
-                final current = goalService.getGoal(index);
+                final current = goals[index];
 
                 return SlidableActions(
                   extentRatio: 0.3,

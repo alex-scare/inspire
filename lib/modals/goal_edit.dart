@@ -13,7 +13,10 @@ class FormData {
 }
 
 class GoalEditModal extends StatefulWidget {
-  const GoalEditModal({Key? key}) : super(key: key);
+  const GoalEditModal({Key? key, this.title, this.goal}) : super(key: key);
+
+  final String? title;
+  final Goal? goal;
 
   @override
   State<GoalEditModal> createState() => _GoalEditModalState();
@@ -24,8 +27,27 @@ class _GoalEditModalState extends State<GoalEditModal> {
   var data = FormData();
 
   @override
+  void initState() {
+    if (widget.goal != null) {
+      data.iconHash = widget.goal?.iconHash ?? data.iconHash;
+      data.title = widget.goal?.title ?? data.title;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final goalService = Provider.of<GoalService>(context);
+
+    void submitForm() {
+      if (widget.goal != null) {
+        var goal = widget.goal;
+        goal?.iconHash = data.iconHash;
+        goal?.title = data.title;
+      } else {
+        goalService.addGoal(Goal(title: data.title, iconHash: data.iconHash));
+      }
+    }
 
     return Scaffold(
         appBar: CupertinoNavigationBar(
@@ -33,8 +55,7 @@ class _GoalEditModalState extends State<GoalEditModal> {
           brightness: context.theme.brightness,
           trailing: GestureDetector(
             onTap: () {
-              goalService.addGoal(
-                  Goal(iconHash: data.iconHash, title: data.title, id: 34634));
+              submitForm();
               Navigator.of(context).pop();
             },
             child: Icon(Icons.done, color: context.theme.primaryColor),

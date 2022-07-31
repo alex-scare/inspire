@@ -3,71 +3,56 @@ import 'package:hive/hive.dart';
 import 'package:inspire/models/goal.dart';
 
 class GoalService extends ChangeNotifier {
-  static const String _boxName = "goal-box";
+  static const String _boxName = "goal-box-2";
 
   List<Goal> _goals = [];
-
-  Goal? _selectedGoal;
+  Map<dynamic, Goal> _goalsMap = {};
 
   void initService() async {
     var box = await Hive.openBox<Goal>(_boxName);
 
+    _syncChanges(box);
+  }
+
+  void _syncChanges(Box<Goal> box) {
     _goals = box.values.toList();
+    _goalsMap = box.toMap();
     notifyListeners();
   }
 
-  void getGoals() async {
-    var box = await Hive.openBox<Goal>(_boxName);
-
-    _goals = box.values.toList();
-    notifyListeners();
-  }
-
-  Goal getGoal(index) {
-    return _goals[index];
+  Goal? getGoal(dynamic key) {
+    return _goalsMap[key];
   }
 
   void addGoal(Goal goal) async {
     var box = await Hive.openBox<Goal>(_boxName);
 
-    await box.add(goal);
+    await box.put(goal.id, goal);
 
-    _goals = box.values.toList();
-    notifyListeners();
+    _syncChanges(box);
   }
 
-  void deleteGoal(key) async {
+  void deleteGoal(dynamic key) async {
     var box = await Hive.openBox<Goal>(_boxName);
 
     await box.delete(key);
 
-    _goals = box.values.toList();
-    notifyListeners();
+    _syncChanges(box);
   }
 
-  void editGoal({required Goal goal, required int id}) async {
+  void editGoal(dynamic key, Goal goal) async {
     var box = await Hive.openBox<Goal>(_boxName);
 
-    await box.put(id, goal);
+    await box.put(key, goal);
 
-    _goals = box.values.toList();
-    setSelectedGoal(id);
-    notifyListeners();
-  }
-
-  void setSelectedGoal(int id) async {
-    var box = await Hive.openBox<Goal>(_boxName);
-
-    _selectedGoal = box.get(id);
-
-    notifyListeners();
-  }
-
-  Goal? getSelectedGoal() {
-    return _selectedGoal;
+    _syncChanges(box);
   }
 
   int get goalCount {
     return _goals.length;
+  }
+
+  get goals {
+    return _goals;
   }
 }

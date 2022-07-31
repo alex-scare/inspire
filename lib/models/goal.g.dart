@@ -17,13 +17,12 @@ class GoalAdapter extends TypeAdapter<Goal> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Goal(
-      id: fields[0] as int,
       title: fields[1] as String,
       iconHash: fields[2] as int,
       power: fields[3] as int,
       repeatCountToDone: fields[4] as int,
       isArchived: fields[5] as bool,
-    );
+    )..id = fields[0] as String;
   }
 
   @override
