@@ -9,7 +9,7 @@ class GoalService extends ChangeNotifier {
 
   Goal? _selectedGoal;
 
-  void initGoals() async {
+  void initService() async {
     var box = await Hive.openBox<Goal>(_boxName);
 
     _goals = box.values.toList();

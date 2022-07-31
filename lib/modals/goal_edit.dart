@@ -34,6 +34,7 @@ class _GoalEditModalState extends State<GoalEditModal> {
             onTap: () {
               goalService.addGoal(
                   Goal(iconHash: data.iconHash, title: data.title, id: 34634));
+              Navigator.of(context).pop();
             },
             child: Icon(Icons.done, color: Theme.of(context).primaryColor),
           ),

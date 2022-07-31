@@ -5,6 +5,7 @@ import 'package:inspire/models/global_state.dart';
 import 'package:inspire/screens/goals_screen.dart';
 import 'package:inspire/screens/home_screen.dart';
 import 'package:inspire/screens/settings.dart';
+import 'package:inspire/services/goal_service.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,9 @@ class _AppScreenState extends State<AppScreen>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    final goalService = Provider.of<GoalService>(context);
+    goalService.initService();
+
     return MaterialApp(
       title: 'Inspire app',
       debugShowCheckedModeBanner: false,
