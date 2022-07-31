@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inspire/extensions.dart';
 
 class IconListInput extends StatefulWidget {
   const IconListInput(
@@ -42,7 +43,7 @@ class _IconListInputState extends State<IconListInput> {
         final bool isSelected = option == value;
         return Container(
             decoration: BoxDecoration(
-              color: isSelected ? Theme.of(context).primaryColor : null,
+              color: isSelected ? context.theme.primaryColor : null,
               borderRadius: BorderRadius.circular(10),
             ),
             margin: const EdgeInsets.all(15),
@@ -50,11 +51,8 @@ class _IconListInputState extends State<IconListInput> {
                 child: Icon(
                   IconData(option, fontFamily: 'MaterialIcons'),
                   color: isSelected
-                      ? Theme.of(context).colorScheme.onPrimary
-                      : Theme.of(context)
-                          .colorScheme
-                          .onBackground
-                          .withAlpha(170),
+                      ? context.colors.onPrimary
+                      : context.colors.onBackground.withAlpha(170),
                 ),
                 onTap: () {
                   widget.onChanged(option);

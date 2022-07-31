@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:inspire/extensions.dart';
 
 class CupertinoTextInput extends StatelessWidget {
   const CupertinoTextInput({
@@ -20,16 +21,16 @@ class CupertinoTextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoFormRow(
-        prefix: Text(label,
-            style: TextStyle(color: Theme.of(context).primaryColor)),
+        prefix:
+            Text(label, style: TextStyle(color: context.theme.primaryColor)),
         child: CupertinoTextFormFieldRow(
           textCapitalization: TextCapitalization.sentences,
           autofocus: autofocus,
-          placeholderStyle: TextStyle(color: Theme.of(context).focusColor),
+          placeholderStyle: TextStyle(color: context.theme.focusColor),
           placeholder: placeholder,
           initialValue: initialValue,
           onChanged: onChanged,
-          style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
+          style: TextStyle(color: context.colors.onBackground),
         ));
   }
 }

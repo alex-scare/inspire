@@ -4,6 +4,7 @@ import 'package:inspire/models/goal.dart';
 import 'package:inspire/services/goal_service.dart';
 import 'package:inspire/widgets/cupertino_text_input.dart';
 import 'package:inspire/widgets/icon_list_input.dart';
+import 'package:inspire/extensions.dart';
 import 'package:provider/provider.dart';
 
 class FormData {
@@ -28,19 +29,18 @@ class _GoalEditModalState extends State<GoalEditModal> {
 
     return Scaffold(
         appBar: CupertinoNavigationBar(
-          backgroundColor: Theme.of(context).backgroundColor,
-          brightness: Theme.of(context).brightness,
+          backgroundColor: context.theme.backgroundColor,
+          brightness: context.theme.brightness,
           trailing: GestureDetector(
             onTap: () {
               goalService.addGoal(
                   Goal(iconHash: data.iconHash, title: data.title, id: 34634));
               Navigator.of(context).pop();
             },
-            child: Icon(Icons.done, color: Theme.of(context).primaryColor),
+            child: Icon(Icons.done, color: context.theme.primaryColor),
           ),
           middle: Text('Create new goal',
-              style:
-                  TextStyle(color: Theme.of(context).colorScheme.onBackground)),
+              style: TextStyle(color: context.colors.onBackground)),
         ),
         body: SafeArea(
           child: Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:inspire/extensions.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   CustomAppBar({
@@ -15,10 +16,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return CupertinoNavigationBar(
       transitionBetweenRoutes: false,
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: context.theme.backgroundColor,
       trailing: trailing,
-      middle: Text(title,
-          style: TextStyle(color: Theme.of(context).colorScheme.onBackground)),
+      middle: Text(title, style: TextStyle(color: context.colors.onBackground)),
     );
   }
 

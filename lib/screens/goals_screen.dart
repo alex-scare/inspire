@@ -4,6 +4,7 @@ import 'package:inspire/modals/goal_edit.dart';
 import 'package:inspire/services/goal_service.dart';
 import 'package:inspire/widgets/app_bar.dart';
 import 'package:inspire/widgets/slidable_actions.dart';
+import 'package:inspire/extensions.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
@@ -23,8 +24,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
         appBar: CustomAppBar(
           title: 'Your goals',
           trailing: GestureDetector(
-            child: Icon(Icons.add,
-                color: Theme.of(context).colorScheme.onBackground),
+            child: Icon(Icons.add, color: context.colors.onBackground),
             onTap: () {
               showCupertinoModalBottomSheet(
                   context: context,
@@ -32,28 +32,31 @@ class _GoalsScreenState extends State<GoalsScreen> {
             },
           ),
         ),
-        body: ListView.separated(
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(height: 0.5);
-          },
-          itemCount: goalService.goalCount,
-          itemBuilder: ((context, index) {
-            final current = goalService.getGoal(index);
+        body: SlidableAutoCloseBehavior(
+            closeWhenOpened: true,
+            closeWhenTapped: true,
+            child: ListView.separated(
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(height: 0.5);
+              },
+              itemCount: goalService.goalCount,
+              itemBuilder: ((context, index) {
+                final current = goalService.getGoal(index);
 
-            return SlidableActions(
-              extentRatio: 0.3,
-              edit: () => showCupertinoModalBottomSheet(
-                  context: context,
-                  builder: (context) => const GoalEditModal()),
-              child: ListTile(
-                title: Text(current.title),
-                leading: Icon(
-                  IconData(current.iconHash, fontFamily: 'MaterialIcons'),
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-            );
-          }),
-        ));
+                return SlidableActions(
+                  extentRatio: 0.3,
+                  edit: () => showCupertinoModalBottomSheet(
+                      context: context,
+                      builder: (context) => const GoalEditModal()),
+                  child: ListTile(
+                    title: Text(current.title),
+                    leading: Icon(
+                      IconData(current.iconHash, fontFamily: 'MaterialIcons'),
+                      color: context.theme.primaryColor,
+                    ),
+                  ),
+                );
+              }),
+            )));
   }
 }

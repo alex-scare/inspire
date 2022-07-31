@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:inspire/extensions.dart';
 
 class SlidableActions extends StatelessWidget {
   const SlidableActions({
@@ -20,6 +21,7 @@ class SlidableActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
+      key: key,
       startActionPane: edit != null
           ? ActionPane(
               motion: const ScrollMotion(),
@@ -27,10 +29,8 @@ class SlidableActions extends StatelessWidget {
               children: [
                 if (edit != null)
                   SlidableAction(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.tertiaryContainer,
-                    foregroundColor:
-                        Theme.of(context).colorScheme.onTertiaryContainer,
+                    backgroundColor: context.colors.tertiaryContainer,
+                    foregroundColor: context.colors.onTertiaryContainer,
                     icon: Icons.edit,
                     label: 'Edit',
                     onPressed: (context) => edit!(),
@@ -45,20 +45,16 @@ class SlidableActions extends StatelessWidget {
               children: [
                 if (delete != null)
                   SlidableAction(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.tertiaryContainer,
-                    foregroundColor:
-                        Theme.of(context).colorScheme.onTertiaryContainer,
+                    backgroundColor: context.colors.tertiaryContainer,
+                    foregroundColor: context.colors.onTertiaryContainer,
                     icon: Icons.delete,
                     label: 'Delete',
                     onPressed: (context) => delete!(),
                   ),
                 if (pin != null)
                   SlidableAction(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.tertiaryContainer,
-                    foregroundColor:
-                        Theme.of(context).colorScheme.onTertiaryContainer,
+                    backgroundColor: context.colors.tertiaryContainer,
+                    foregroundColor: context.colors.onTertiaryContainer,
                     icon: Icons.pin,
                     label: 'Pin',
                     onPressed: (context) => pin!(),
