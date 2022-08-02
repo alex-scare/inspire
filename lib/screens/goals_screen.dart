@@ -4,7 +4,7 @@ import 'package:inspire/modals/goal_edit.dart';
 import 'package:inspire/services/goal_service.dart';
 import 'package:inspire/widgets/app_bar.dart';
 import 'package:inspire/widgets/slidable_actions.dart';
-import 'package:inspire/extensions.dart';
+import 'package:inspire/extensions/theme.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
@@ -50,6 +50,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       context: context,
                       builder: (context) =>
                           GoalEditModal(goal: current, mode: 'edit')),
+                  delete: () => goalService.deleteGoal(current.id),
                   child: ListTile(
                     title: Text(current.title),
                     leading: Icon(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:inspire/extensions.dart';
+import 'package:inspire/extensions/theme.dart';
 
 class SlidableActions extends StatelessWidget {
   const SlidableActions({
@@ -29,8 +29,8 @@ class SlidableActions extends StatelessWidget {
               children: [
                 if (edit != null)
                   SlidableAction(
-                    backgroundColor: context.colors.tertiaryContainer,
-                    foregroundColor: context.colors.onTertiaryContainer,
+                    backgroundColor: context.colors.secondaryContainer,
+                    foregroundColor: context.colors.onSecondaryContainer,
                     icon: Icons.edit,
                     label: 'Edit',
                     onPressed: (context) => edit!(),
@@ -45,8 +45,8 @@ class SlidableActions extends StatelessWidget {
               children: [
                 if (delete != null)
                   SlidableAction(
-                    backgroundColor: context.colors.tertiaryContainer,
-                    foregroundColor: context.colors.onTertiaryContainer,
+                    backgroundColor: context.colors.errorContainer,
+                    foregroundColor: context.colors.onErrorContainer,
                     icon: Icons.delete,
                     label: 'Delete',
                     onPressed: (context) => delete!(),

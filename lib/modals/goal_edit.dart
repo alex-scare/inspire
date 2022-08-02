@@ -4,7 +4,7 @@ import 'package:inspire/models/goal.dart';
 import 'package:inspire/services/goal_service.dart';
 import 'package:inspire/widgets/cupertino_text_input.dart';
 import 'package:inspire/widgets/icon_list_input.dart';
-import 'package:inspire/extensions.dart';
+import 'package:inspire/extensions/theme.dart';
 import 'package:provider/provider.dart';
 
 class FormData {

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inspire/extensions.dart';
+import 'package:inspire/extensions/theme.dart';
 
 class CupertinoTextInput extends StatelessWidget {
   const CupertinoTextInput({

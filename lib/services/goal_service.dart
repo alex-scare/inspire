@@ -52,7 +52,7 @@ class GoalService extends ChangeNotifier {
     return _goals.length;
   }
 
-  get goals {
+  List<Goal> get goals {
     return _goals;
   }
 }

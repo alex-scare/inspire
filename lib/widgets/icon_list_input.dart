@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inspire/extensions.dart';
+import 'package:inspire/extensions/theme.dart';
 
 class IconListInput extends StatefulWidget {
   const IconListInput(
