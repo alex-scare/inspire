@@ -35,6 +35,7 @@ class GlobalStateModel extends ChangeNotifier {
 
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
+
     final storedTheme = EnumToString.fromString<FlexScheme>(
         FlexScheme.values, prefs.getString('currentTheme').toString());
 
@@ -48,7 +49,6 @@ class GlobalStateModel extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
 
     prefs.setString('currentTheme', EnumToString.convertToString(value));
-    _currentTheme = value;
     notifyListeners();
   }
 }

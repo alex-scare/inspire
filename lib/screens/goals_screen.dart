@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:inspire/modals/goal_edit.dart';
+import 'package:inspire/models/global_state.dart';
 import 'package:inspire/services/goal_service.dart';
 import 'package:inspire/widgets/app_bar.dart';
 import 'package:inspire/widgets/slidable_actions.dart';
@@ -19,7 +20,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   @override
   Widget build(BuildContext context) {
     final goalService = Provider.of<GoalService>(context);
-    final goals = goalService.goals;
+    final goals = goalService.sortedGoals;
 
     return Scaffold(
         appBar: CustomAppBar(
@@ -45,13 +46,24 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 final current = goals[index];
 
                 return SlidableActions(
-                  extentRatio: 0.3,
+                  extentRatioLeft: 0.3,
+                  extentRatioRight: 0.5,
                   edit: () => showCupertinoModalBottomSheet(
                       context: context,
                       builder: (context) =>
                           GoalEditModal(goal: current, mode: 'edit')),
                   delete: () => goalService.deleteGoal(current.id),
+                  pin: !current.isPinned
+                      ? () => goalService.pinGoal(current.id)
+                      : null,
+                  unpin: current.isPinned
+                      ? () => goalService.pinGoal(current.id)
+                      : null,
                   child: ListTile(
+                    trailing: current.isPinned
+                        ? Icon(Icons.push_pin,
+                            color: context.colors.primary.withAlpha(150))
+                        : null,
                     title: Text(current.title),
                     leading: Icon(
                       IconData(current.iconHash, fontFamily: 'MaterialIcons'),

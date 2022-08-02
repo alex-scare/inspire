@@ -11,6 +11,7 @@ class Goal extends HiveObject {
       this.power = 0,
       this.repeatCountToDone = 1,
       this.isArchived = false,
+      this.isPinned = false,
       existingId}) {
     id = existingId ?? const Uuid().v4();
   }
@@ -27,6 +28,8 @@ class Goal extends HiveObject {
   late int repeatCountToDone;
   @HiveField(5)
   late bool isArchived;
+  @HiveField(6)
+  late bool isPinned;
 }
 
 Map<String, int> iconHashCode = {

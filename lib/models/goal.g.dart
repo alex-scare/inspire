@@ -22,13 +22,15 @@ class GoalAdapter extends TypeAdapter<Goal> {
       power: fields[3] as int,
       repeatCountToDone: fields[4] as int,
       isArchived: fields[5] as bool,
-    )..id = fields[0] as String;
+    )
+      ..id = fields[0] as String
+      ..isPinned = fields[6] as bool;
   }
 
   @override
   void write(BinaryWriter writer, Goal obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -40,7 +42,9 @@ class GoalAdapter extends TypeAdapter<Goal> {
       ..writeByte(4)
       ..write(obj.repeatCountToDone)
       ..writeByte(5)
-      ..write(obj.isArchived);
+      ..write(obj.isArchived)
+      ..writeByte(6)
+      ..write(obj.isPinned);
   }
 
   @override

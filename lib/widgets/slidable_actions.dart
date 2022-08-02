@@ -9,14 +9,18 @@ class SlidableActions extends StatelessWidget {
     this.delete,
     this.edit,
     this.pin,
-    this.extentRatio = 0.5,
+    this.unpin,
+    this.extentRatioLeft = 0.4,
+    this.extentRatioRight = 0.4,
   }) : super(key: key);
 
   final Widget child;
   final Function? delete;
   final Function? edit;
   final Function? pin;
-  final double extentRatio;
+  final Function? unpin;
+  final double extentRatioLeft;
+  final double extentRatioRight;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class SlidableActions extends StatelessWidget {
       startActionPane: edit != null
           ? ActionPane(
               motion: const ScrollMotion(),
-              extentRatio: extentRatio,
+              extentRatio: extentRatioLeft,
               children: [
                 if (edit != null)
                   SlidableAction(
@@ -41,7 +45,7 @@ class SlidableActions extends StatelessWidget {
       endActionPane: pin != null || delete != null
           ? ActionPane(
               motion: const ScrollMotion(),
-              extentRatio: extentRatio,
+              extentRatio: extentRatioRight,
               children: [
                 if (delete != null)
                   SlidableAction(
@@ -55,10 +59,18 @@ class SlidableActions extends StatelessWidget {
                   SlidableAction(
                     backgroundColor: context.colors.tertiaryContainer,
                     foregroundColor: context.colors.onTertiaryContainer,
-                    icon: Icons.pin,
+                    icon: Icons.push_pin,
                     label: 'Pin',
                     onPressed: (context) => pin!(),
-                  )
+                  ),
+                if (unpin != null)
+                  SlidableAction(
+                    backgroundColor: context.colors.tertiaryContainer,
+                    foregroundColor: context.colors.onTertiaryContainer,
+                    icon: Icons.push_pin_outlined,
+                    label: 'Unpin',
+                    onPressed: (context) => unpin!(),
+                  ),
               ],
             )
           : null,
