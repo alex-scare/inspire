@@ -48,7 +48,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   extentRatio: 0.3,
                   edit: () => showCupertinoModalBottomSheet(
                       context: context,
-                      builder: (context) => const GoalEditModal()),
+                      builder: (context) =>
+                          GoalEditModal(goal: current, mode: 'edit')),
                   child: ListTile(
                     title: Text(current.title),
                     leading: Icon(

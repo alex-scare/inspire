@@ -13,9 +13,10 @@ class FormData {
 }
 
 class GoalEditModal extends StatefulWidget {
-  const GoalEditModal({Key? key, this.title, this.goal}) : super(key: key);
+  const GoalEditModal({Key? key, this.mode = 'create', this.goal})
+      : super(key: key);
 
-  final String? title;
+  final String mode;
   final Goal? goal;
 
   @override
@@ -24,6 +25,7 @@ class GoalEditModal extends StatefulWidget {
 
 class _GoalEditModalState extends State<GoalEditModal> {
   final _formKey = GlobalKey<FormState>();
+  String modalTitle = 'Create new goal';
   var data = FormData();
 
   @override
@@ -32,6 +34,8 @@ class _GoalEditModalState extends State<GoalEditModal> {
       data.iconHash = widget.goal?.iconHash ?? data.iconHash;
       data.title = widget.goal?.title ?? data.title;
     }
+    if (widget.mode == 'edit') modalTitle = 'Edit your goal';
+
     super.initState();
   }
 
@@ -60,7 +64,7 @@ class _GoalEditModalState extends State<GoalEditModal> {
             },
             child: Icon(Icons.done, color: context.theme.primaryColor),
           ),
-          middle: Text('Create new goal',
+          middle: Text(modalTitle,
               style: TextStyle(color: context.colors.onBackground)),
         ),
         body: SafeArea(
@@ -84,7 +88,7 @@ class _GoalEditModalState extends State<GoalEditModal> {
                                 initialValue: data.title),
                           ]),
                       IconListInput(
-                        initialValue: 0xe0b2,
+                        initialValue: data.iconHash,
                         onChanged: (value) {
                           data.iconHash = value;
                         },
